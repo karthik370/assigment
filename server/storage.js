@@ -3,7 +3,7 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 const { v4: uuid } = require('uuid');
 
-const dbPath = path.join(__dirname, 'db.json');
+const dbPath = process.env.DB_FILE || path.join(__dirname, 'db.json');
 
 const seedEmployees = [
   { id: uuid(), name: 'Aarav Sharma', email: 'aarav@innotech.com', role: 'Frontend Developer', department: 'Engineering', status: 'Active', joinedAt: '2025-04-05' },
