@@ -1,4 +1,4 @@
-const base = '/api';
+const API_BASE = (process.env.REACT_APP_API_URL || '/api').replace(/\/$/, '');
 
 export const getToken = () => localStorage.getItem('hr_token') || '';
 export const setToken = (t) => localStorage.setItem('hr_token', t || '');
@@ -8,7 +8,7 @@ async function request(path, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
-  const res = await fetch(`${base}${path}`, { ...options, headers });
+  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.message || 'Request failed');
