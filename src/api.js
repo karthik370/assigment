@@ -1,4 +1,6 @@
-const API_BASE = (process.env.REACT_APP_API_URL || '/api').replace(/\/$/, '');
+const rawEnv = process.env.REACT_APP_API_URL;
+const isVercel = typeof window !== 'undefined' && /\.vercel\.app$/.test(window.location.hostname);
+const API_BASE = ((rawEnv && !isVercel) ? rawEnv : '/api').replace(/\/$/, '');
 
 export const getToken = () => localStorage.getItem('hr_token') || '';
 export const setToken = (t) => localStorage.setItem('hr_token', t || '');
